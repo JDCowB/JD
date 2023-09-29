@@ -11,7 +11,7 @@ Tips：仓库内全部都是工具本没有常规本不需要默认设置定时�
 
 ## 拉库
 
-- ### Arcadia 面板（推荐使用⭐）
+- ### Arcadia 面板（推荐⭐）
 
     ```bash
     arcadia repo 慈善家 https://gitlab.com/SuperManito/cishanjia.git main --updateTaskList true --autoDisable true --whiteList '^jd_'
@@ -37,12 +37,37 @@ npm install -g ds crypto-js jsdom got@11
 
 ## 功能配置
 
+- ### 配置代理
+
+  - #### 全局代理
+
+    ```bash
+    ## 启用代理
+    export JD_ISV_GLOBAL_PROXY="true"
+    # 定义 HTTP 代理地址（必填）
+    export GLOBAL_AGENT_HTTP_PROXY="" # 例：http://127.0.0.1:8080
+    # 过滤不需要代理的地址（必填）
+    export GLOBAL_AGENT_NO_PROXY='127.0.0.1,172.17.0.1,*.telegram.org,oapi.dingtalk.com' # 用英文逗号分割多个地址
+    ```
+    > 全局代理适用于需要获取 `token` 的脚本，涉及本仓库绝大多数脚本  
+    > 更多配置方法详见 [gajus/global-agent](https://github.com/gajus/global-agent)  
+    > 需要额外安装代理依赖库才能使用 `npm install -g global-agent`
+
+  - #### 获取 `Token` 局部代理
+
+    ```bash
+    export JD_ISV_TOKEN_PROXY="" # 例：http://127.0.0.1:8080
+    ```
+    > 目前受限于官方接口策略同一IP请求多个账号时会频繁响应403，因此可能需要配合代理使用  
+    > 需要额外安装代理依赖库才能使用 `npm install -g hpagent`
+
 - ### 自定义签名API
 
   ```bash
   export JD_SIGN_API="" # 杂货铺格式
   ```
-  > 默认提供杂货铺公益API，不自定义签名API也能正常使用脚本
+  > 绝大部分脚本需要使用签名，不过签名可以本地生成，不自定义签名API也能正常使用脚本  
+  > 默认请求 [杂货铺公益API](http://api.nolanstore.cc) 在线获取签名，不会泄露任何隐私信息
 
 - ### 自动登记实物奖品收货地址
 
