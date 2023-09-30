@@ -2,7 +2,7 @@
 活动名称：幸运抽奖（超级无线）
 活动链接：https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=<10020/10021/10026/10041/10042/10046/10054/10062/10063/10073/10080>&templateId=<模板id>&activityId=<活动id>&prd=cjwx
 环境变量：jd_lzkj_loreal_draw_url // 活动链接
-		jd_lzkj_loreal_draw_opencard // 是否入会（true/false），默认入会
+		jd_lzkj_loreal_draw_opencard // 是否入会（true/false），默认不入会
         jd_lzkj_loreal_draw_Notify // 是否推送通知（true/false），默认不推送
         jd_lzkj_loreal_draw_Interval // 自定义抽奖间隔（整数），默认1秒
         jd_lzkj_loreal_draw_MaxMiss // 最大连续未抽中次数（正整数），达到此次数后会跳过运行对应账号，默认不启用此功能
