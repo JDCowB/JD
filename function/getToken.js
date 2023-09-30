@@ -37,8 +37,12 @@ if (getTokenProxyUrl) {
 // 全局代理
 const globalProxy = process.env.JD_ISV_GLOBAL_PROXY === 'true' // 默认不启用
 if (globalProxy) {
-    require('global-agent/bootstrap')
-    console.log('🌐 已启用全局代理')
+    try {
+        require('global-agent/bootstrap')
+        console.log('🌐 已启用全局代理')
+    } catch (err) {
+        console.log(`🚫 getToken 代理模块加载失败 ➜ ${err.message}`)
+    }
 }
 
 /**
