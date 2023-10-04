@@ -4,6 +4,7 @@ new Env('getToken');
 
 const got = require('got')
 const getSign = require('./getSign')
+const common = require('./jdCommon')
 
 // 定义缓存 token 有效时间
 const cacheDefaultTTL = 29 * 60 * 1000
@@ -89,6 +90,12 @@ async function getToken(cookie, baseUrl) {
             timeout: 30000,
         }
         if (getTokenProxyUrl && proxyAgent) {
+            // 使用局部代理时主动检测 cookie 是否有效以用于节省代理资源
+            const loginStatus = await common.getLoginStatus(cookie)
+            if (!loginStatus && typeof loginStatus !== undefined) {
+                console.log(`🚫 getToken API请求失败 ➜ 账号无效`)
+                return ''
+            }
             requestOptions.agent = {
                 https: proxyAgent,
             }
