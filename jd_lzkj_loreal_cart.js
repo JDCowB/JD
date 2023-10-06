@@ -1,6 +1,6 @@
 /*
 活动名称：加购有礼（超级无线）
-活动链接：https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10024&templateId=<模板id>&activityId=<活动id>&nodeId=<nodeid>&prd=cjwx
+活动链接：https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10024&templateId=<模板id>&activityId=<活动id>&prd=cjwx
 环境变量：jd_lzkj_loreal_cart_url // 活动链接
          jd_lzkj_loreal_cart_openCard // 是否开卡，默认不开卡
 
