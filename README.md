@@ -2,7 +2,7 @@
 
 全量自用工具本，使用方法详见脚本内注释，反馈脚本问题请在社区内或其它渠道联系作者，随缘更新~
 
-主要接口验参调用函数模块并且开源，脚本内容全部加密无任何调用个人接口，我很忙没空研究如何偷你ck，喜欢🐕叫的别用谢谢
+主要接口验参调用函数模块，脚本内容全部加密无任何调用个人接口，我很忙没空研究如何偷你ck，喜欢🐕叫的别用谢谢
 
 > 官方线报频道：[来薅线报通知](https://t.me/LH_notify)  
 > 官方解析BOT：[宇宙无敌万能解析机器人](https://t.me/ParseJDBot)（加入 [Arcadia 官方频道](https://t.me/ArcadiaPanel) 和社区群组后才可以使用）
@@ -50,16 +50,34 @@ npm install -g ds crypto-js jsdom got@11
     # 过滤不需要代理的地址（必填）
     export GLOBAL_AGENT_NO_PROXY='127.0.0.1,172.17.0.1,*.telegram.org,oapi.dingtalk.com' # 用英文逗号分割多个地址，这里特别注意要把用到的内网ip过滤掉
     ```
-    全局代理适用于本仓库绝大多数脚本，更多配置方法详见 [gajus/global-agent](https://github.com/gajus/global-agent)  
+    全局代理适用于本仓库绝大多数脚本，更多配置方法详见 [gajus/global-agent](https://github.com/gajus/global-agent)
     需要额外安装代理依赖库才能使用 `npm install -g global-agent`
+    > 如果你正在使用 Arcadia 面板则无需重复安装此代理依赖库，并且可以通过命令选项 `--agent` 在任意脚本上便捷的实现全局代理功能，具体详见配置文件和文档
 
   - #### 获取 `Token` 局部代理
 
-    ```bash
-    export JD_ISV_TOKEN_PROXY="" # 例：http://127.0.0.1:8080
+    ```bash、
+    export JD_ISV_TOKEN_PROXY_API="" # 代理接口地址
     ```
-    目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用  
+    目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用，使用代理时会自动重试请求至多3次  
     需要额外安装代理依赖库才能使用 `npm install -g hpagent`
+
+    - ##### 通过 API 提取的动态代理
+
+      如果你需要使用的是代理商接口所动态提供的代理地址，那么请定义下方的变量
+      ```bash
+      export JD_ISV_TOKEN_PROXY_API="" # 代理接口地址，例：http://example.com/api/getProxy?sevret=xxx
+      export JD_ISV_TOKEN_PROXY_API_MAX="" # 每个代理地址的使用次数，默认为1次
+      ```
+      为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
+      启用此模式后由环境变量 `JD_ISV_TOKEN_PROXY_API` 指定的固定代理地址将会自动被忽略，届时会使用接口响应数据所动态提供的代理地址
+
+- ### 自定义 `Token` 缓存文件路径
+
+  ```bash
+  export JD_ISV_TOKEN_CUSTOM_CACHE="" # 绝对路径，建议以 token.json 命名
+  ```
+  > 此文件默认存储在仓库 function/cache 目录下
 
 - ### 自定义签名
 
@@ -104,9 +122,9 @@ npm install -g ds crypto-js jsdom got@11
       > 2. 纯数字单一店铺ID：shopId、venderId、vendorId 任意一个参数的ID值，例：gz 1234567890  
       > 3. 市面常见id组合变量（格式为 shopId_venderId），例：gz 1234567890_0987654321
 
-      |      命令选项      |  简写  |             作用            |
-      | :---------------: | :----: | :-----------------------: |
-      |   `--cookie`      |  `-c`  |  指定账号，参数后需跟账号序号   |
-      |   `--background`  |  `-b`  |  后台运行脚本，不在前台输出日志 |
+      |    命令选项    | 简写  |              作用              |
+      | :------------: | :---: | :----------------------------: |
+      |   `--cookie`   | `-c`  |  指定账号，参数后需跟账号序号  |
+      | `--background` | `-b`  | 后台运行脚本，不在前台输出日志 |
 
 __未经授权请勿搬运，脚本仅供用于学习交流，切勿用于商业用途！__
