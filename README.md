@@ -31,6 +31,8 @@ Tips：仓库内全部都是工具本没有常规本不需要默认设置定时�
 
 ## 需要安装的依赖库
 
+需要 Node.js® 16 及以上版本，推荐 Node.js® 18 LTS
+
 ```bash
 npm install -g ds crypto-js jsdom got@11
 ```
