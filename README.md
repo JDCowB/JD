@@ -128,25 +128,25 @@ npm install -g ds crypto-js jsdom got@11
   - #### 消息内容分隔符
 
     ```bash
-    export JD_NOTIFY_FILTER_KEYWORDS="" # 例："、"，此分隔符用于分隔多条账号消息
+    export JD_NOTIFY_DELIMITER="" # 例："、"，此分隔符用于分隔多条账号消息
     ```
 
   - #### 设置替换用户名为昵称
 
     ```bash
-    export JD_NOTIFY_FILTER_KEYWORDS="" # 例："userpin_α@哥哥,userpin_β@弟弟"，多个昵称配置用英文逗号分割，用户名和昵称用@分割
+    export JD_NOTIFY_NICKNAMES="" # 例："userpin_α@哥哥,userpin_β@弟弟"，多个昵称配置用英文逗号分割，用户名和昵称用@分割
     ```
 
   - #### 是否显示用户名
 
     ```bash
-    export JD_NOTIFY_FILTER_KEYWORDS="" # 例："false"，true/false，默认显示
+    export JD_NOTIFY_SHOW_USERNAME="" # 例："false"，true/false，默认显示
     ```
 
   - #### 设置消息前缀格式
 
     ```bash
-    export JD_NOTIFY_FILTER_KEYWORDS="" # 例："[账号%]"，%代表账号序号
+    export JD_NOTIFY_PREFIX_FORMATA="" # 例："[账号%]"，%代表账号序号
     ```
 
   - #### 设置自动合并消息中用数字开头表示数量的内容
