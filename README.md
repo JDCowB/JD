@@ -66,8 +66,8 @@ npm install -g ds crypto-js jsdom got@11
 
   - #### 获取 `Token` 局部代理
 
-    ```bash、
-    export JD_ISV_TOKEN_PROXY_API="" # 代理接口地址
+    ```bash
+    export JD_ISV_TOKEN_PROXY="" # 代理接口地址
     ```
     目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用，使用代理时会自动重试请求至多3次  
     需要额外安装代理依赖库才能使用 `npm install -g hpagent`
@@ -80,7 +80,7 @@ npm install -g ds crypto-js jsdom got@11
       export JD_ISV_TOKEN_PROXY_API_MAX="" # 每个代理地址的使用次数，默认为1次
       ```
       为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
-      启用此模式后由环境变量 `JD_ISV_TOKEN_PROXY_API` 指定的固定代理地址将会自动被忽略，届时会使用接口响应数据所动态提供的代理地址
+      启用此模式后由环境变量 `JD_ISV_TOKEN_PROXY_API` 指定的固定代理地址将会被自动忽略，届时会使用接口响应数据所动态提供的代理地址
 
 - ### 自定义 `Token` 缓存
 
