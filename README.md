@@ -103,6 +103,15 @@ npm install -g ds crypto-js jsdom got@11
     > 需要额外安装依赖库才能使用 `npm install -g redis`，默认从键名为用户名的字符串对象中提取键值，用户名是解码后的  
     > 如果你想自定义键名格式则需要将用户名位置设为 `<pt_pin>` 例如：`isv_token:<pt_pin>`，否则将自动在末尾追加
 
+- ### 账号全局屏蔽
+
+  ```bash
+  export JD_ISV_TOKEN_LZKJ_PIN_FILTER=""
+  export JD_ISV_TOKEN_LZKJ_LOREAL_PIN_FILTER=""
+  export JD_ISV_TOKEN_CJHY_PIN_FILTER=""
+  ```
+  > 填入用户名，多个用@分割
+
 - ### 自定义APP签名验参
 
   > 本仓库绝大部分脚本需要使用签名，不自定义签名也能正常使用脚本
