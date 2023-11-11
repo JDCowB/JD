@@ -86,12 +86,18 @@ npm install -g ds crypto-js jsdom got@11
 
   > `Token` 是关联账号的重要信息，它的有效期为30分钟左右因此不用每次都用新的，默认缓存在本地文件中，缓存时间为29分钟，同时也支持使用 `Redis` 数据库进行缓存以实现跨设备共用
 
-  - #### 自定义缓存文件路径
+  - #### 自定义缓存时长
+
+    ```bash
+    export JD_ISV_TOKEN_CACHE_EXPIRE_MINUTES="" # 整数，默认不填为29分钟
+    ```
+
+  - #### 自定义本地缓存文件路径
 
     ```bash
     export JD_ISV_TOKEN_CUSTOM_CACHE="" # 绝对路径，建议以 token.json 命名
     ```
-    > 此文件默认存储在仓库 `function/cache` 目录下
+    > 此文件默认存储在仓库 `function/cache` 目录下，如果你需要多仓库使用建议定义此变量
 
   - #### 使用 `Redis` 数据库
 
