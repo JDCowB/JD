@@ -118,16 +118,29 @@ npm install -g ds crypto-js jsdom got@11
   ```
   > 填入用户名，多个用@分割
 
-- ### 自定义APP签名验参
+- ### 自定义获取 APP 签名验参
 
-  > 本仓库绝大部分脚本需要使用签名，不自定义签名也能正常使用脚本
+  > 本仓库绝大部分脚本需要使用签名，默认通过请求 [杂货铺公益API](http://api.nolanstore.cc) 在线获取签名不自定义签名也能正常使用脚本
 
-  · 默认通过请求 [杂货铺公益API](http://api.nolanstore.cc) 在线获取签名（不会泄露任何隐私），可通过环境变量 `JD_SIGN_API` 自定义接口地址（杂货铺接口格式）  
-  · 如果存在本地签名生成脚本则会优先加载本地签名，具体规范如下：
-    1. 需要将脚本命名为 genSign.js 并存储在与 getSign 脚本同一目录下
-    2. 调用函数名为 genSign 并且需要 export 导出
-    3. 函数固定两个传参，分别是 functionId（函数id） 和 bodyParams（body参数对象）
-    4. 函数需要返回含有 body、st、sign、sv 等关键字段的url参数形式的签名字符串
+  - #### 请求 API 获取
+
+    ```bash
+    export JD_SIGN_API="" # 接口地址，例：http://127.0.0.1:3000/api/getSign
+    export JD_SIGN_API_BODY_FIELD="" # body参数字段名，默认 'body'
+    export JD_SIGN_API_FUNCTIONID_FIELD="" # functionId参数字段名，默认 'fn'
+    export JD_SIGN_API_METHOD="" # 请求方法，默认 'POST'，自定义仅支持 'GET'
+    export JD_SIGN_API_CONTENT_TYPE="" # 请求头 'Content-Type'，默认 'application/json; charset=utf-8'，支持 'application/x-www-form-urlencoded' 格式
+    ```
+
+  - #### 本地自定义脚本生成
+
+    如果存在本地签名生成脚本则会优先加载本地签名，具体规范如下：
+    - 1. 需要将脚本命名为 genSign.js 并存储在与 getSign 脚本同一目录下
+    - 2. 调用函数名为 genSign 并且需要 export 导出
+    - 3. 函数固定两个传参，分别是 functionId（函数id） 和 bodyParams（body参数对象）
+    - 4. 函数需要返回含有 body、st、sign、sv 等关键字段的url参数形式的签名字符串
+
+  不管通过何种途径获取签名，最终需要的签名形式为url参数格式且至少包含 `body` `st` `sv` `sign` 字段
 
 - ### 自定义账号消息推送通知
 
