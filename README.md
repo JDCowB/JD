@@ -131,6 +131,7 @@ npm install -g ds crypto-js jsdom got@11
     export JD_SIGN_API_METHOD="" # 请求方法，默认 'POST'，自定义仅支持 'GET'
     export JD_SIGN_API_CONTENT_TYPE="" # 请求头 'Content-Type'，默认 'application/json; charset=utf-8'，支持 'application/x-www-form-urlencoded' 格式
     ```
+    JSON响应格式解析的字段目前仅支持 `body` `convertUrl` `convertUrlNew`
 
   - #### 本地自定义脚本生成
 
