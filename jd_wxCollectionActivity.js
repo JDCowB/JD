@@ -7,6 +7,8 @@
 环境变量：jd_wxCollectionActivity_activityUrl // 活动链接
         jd_wxCollectionActivity_openCard // 是否开卡，默认不开卡
 
+7 7 7 7 * 
+
 */
 
 const $ = new Env('加购有礼（超级无线/超级会员）')

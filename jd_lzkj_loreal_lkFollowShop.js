@@ -7,6 +7,8 @@
 		jd_lzkj_loreal_lkFollowShop_opencard // 是否入会（true/false），默认不入会
         jd_lzkj_loreal_lkFollowShop_Notify // 是否推送通知（true/false），默认不推送
 
+7 7 7 7 * 
+
 */
 
 const $ = new Env('关注店铺有礼（超级无线）')
