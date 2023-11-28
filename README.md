@@ -172,7 +172,7 @@ npm install -g ds crypto-js jsdom got@11
     export JD_NOTIFY_SHOW_USERNAME="" # 例："false"，true/false，默认显示
     ```
 
-  - #### 设置用户名是否脱敏
+  - #### 设置推送通知的用户名是否脱敏
 
     ```bash
     export JD_NOTIFY_USERNAME_DESENSITIZATION="" # 例："true"，true/false，默认不脱敏，根据用户名长度动态将部分字符用*替换
