@@ -1,7 +1,7 @@
 /*
 清空购物车（APP版）
 
-cron: 7 7 7 7 * jd_clean_cart.js
+7 7 7 7 *
 
 注意：需要12版本或不带ep的sign
 
