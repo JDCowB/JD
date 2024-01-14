@@ -14,7 +14,7 @@ Tips：仓库内全部都是工具本没有常规本不需要默认设置定时�
 - ### Arcadia 面板（推荐）
 
     ```bash
-    arcadia repo 慈善家 https://gitlab.com/SuperManito/cishanjia.git main --updateTaskList true --autoDisable true --whiteList '^jd_'
+    arcadia repo 慈善家 https://gitlab.com/SuperManito/cishanjia.git main --updateTaskList true --autoDisable false --whiteList '^jd_'
     ```
     详见官方文档 [arcadia.cool](https://arcadia.cool)
 
@@ -203,7 +203,7 @@ npm install -g ds crypto-js jsdom got@11
       gz <店铺链接/单一店铺ID/组合ID变量> [--options]
       ```
       > 注释  
-      > 1. 链接：支持解析ujd短链，只要链接的传递参数中包含 shopId、venderId、vendorId 其中一个任意完整参数即可，例 `gz https://u.jd.com/1234567`  
+      > 1. 链接：支持解析ujd短链，只要链接的传递参数中包含 shopId、venderId、vendorId 其中一个任意完整参数即可，例 `gz https://u.xx.com/1234567`  
       > 2. 纯数字单一店铺ID：shopId、venderId、vendorId 任意一个参数的ID值，例：gz 1234567890  
       > 3. 市面常见id组合变量（格式为 shopId_venderId），例：gz 1234567890_0987654321
 
