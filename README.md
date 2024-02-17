@@ -31,25 +31,64 @@ Tips：仓库内全部都是工具本没有常规本不需要默认设置定时�
 
 ## 需要安装的依赖库
 
-需要 Node.js® 16 及以上版本，建议使用 Node.js® 20 LTS
+建议使用 Node.js® 20 LTS，最低需要 Node.js® 16
 
 ```bash
-npm install -g ds crypto-js jsdom got@11
+npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-printer
 ```
 
 ## 功能配置
 
-- ### 自动登记实物奖品收货地址
+- ### 网络全局代理
 
-  ```bash
-  export WX_ADDRESS="" # 变量格式：收件人@手机号@省份@城市@区县@详细地址@6位行政区划代码@邮编，需按照顺序依次填写，多个用管道符分开（6位行政区划代码自己查地图，也可用身份证号前六位）
-  export WX_ADDRESS_BLOCK="" # 黑名单关键词，多个关键词用@分开
-  ```
-  此变量是通用的，不过部分脚本具有与此功能相同的独特变量，届时将优先使用独特变量
+  > 近期新增基于 Axios 的自研请求框架，全面支持请求代理自动化，脚本正在逐步适配中  
+  > 暂不提供具体支持的脚本清单，关于是否生效可在配置变量后通过观察是否存在相关打印作为参考标准
 
-- ### 配置代理
+  - #### 简述
 
-  - #### 全局代理
+    新请求框架代理配置引入了一个基于入口脚本文件名的独特变量配置体系，基于脚本的独特变量会优先于全局变量生效
+
+    例如脚本文件名为 `jd_example_test.js`，那么对应的独特代理配置变量前缀为 `jd_example_test_`
+
+  - #### 代理白名单
+
+    > 不通过代理的hostname列表，多个用英文逗号分割，支持*通配符
+    ```bash
+    export JD_COMMON_REQUEST_NO_PROXY=""
+    export <entryScriptName>_no_proxy=""
+    ```
+    > 例："127.0.0.1,localhost,*.local"，多个用英文逗号分割
+
+  - #### 静态代理
+
+    ```bash
+    export JD_COMMON_REQUEST_HTTP_PROXY=""
+    export <entryScriptName>_http_proxy=""
+    ```
+
+  - #### 动态代理
+
+    ```bash
+    # 获取动态代理的接口地址
+    export JD_COMMON_REQUEST_HTTP_DYNAMIC_PROXY_API=""
+    export <entryScriptName>_http_dynamic_proxy_api=""
+    # 指定每个动态代理地址的最多使用次数（整数），默认为1即每个代理仅使用1次，设置为0时表示不限次数
+    export JD_COMMON_REQUEST_HTTP_DYNAMIC_PROXY_USE_LIMIT=""
+    export <entryScriptName>_http_dynamic_proxy_use_limit=""
+    # 指定每个动态代理地址的有效时长（单位毫秒），默认为10000即10秒，设置为0时表示永久有效
+    export JD_COMMON_REQUEST_HTTP_DYNAMIC_PROXY_TIME_LIMIT=""
+    export <entryScriptName>_http_dynamic_proxy_time_limit=""
+    # 当获取动态代理失败时是否使用原生网络环境继续发起请求，填入 'true/false'，默认否
+    export JD_COMMON_REQUEST_HTTP_DYNAMIC_PROXY_FETCH_FAIL_CONTINUE=""
+    export <entryScriptName>_http_dynamic_proxy_fetch_fail_continue=""
+    ```
+    > 为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
+    > 使用动态代理时会忽略静态代理配置
+
+  - #### 额外提供的静态代理（过时的方法）
+
+    > 此功能基于 `getToken` 模块实现，与上面描述的新请求框架无关  
+    > getToken 模块将在未来改版，届时可能会考虑移除此功能
 
     ```bash
     ## 启用代理
@@ -64,15 +103,23 @@ npm install -g ds crypto-js jsdom got@11
     需要额外安装代理依赖库才能使用 `npm install -g global-agent`
     > 如果你正在使用 Arcadia 面板则无需重复安装此代理依赖库，并且可以通过命令选项 `--agent` 在任意脚本上便捷的实现全局代理功能，具体详见配置文件和文档
 
+
+- ### 自定义获取 `Token` 相关配置
+
+  > `Token` 是关联账号的重要信息，它的有效期为30分钟左右因此不用每次都用新的，默认缓存在本地文件中，缓存时间为29分钟，同时也支持使用 `Redis` 数据库进行缓存以实现跨设备共用
+
   - #### 获取 `Token` 局部代理
 
-    ```bash
-    export JD_ISV_TOKEN_PROXY="" # 代理接口地址
-    ```
     目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用，使用代理时会自动重试请求至多3次  
     需要额外安装代理依赖库才能使用 `npm install -g hpagent`
 
-    - ##### 通过 API 提取的动态代理
+    - ##### 静态代理
+
+      ```bash
+      export JD_ISV_TOKEN_PROXY="" # 代理接口地址
+      ```
+
+    - ##### 动态代理
 
       如果你需要使用的是代理商接口所动态提供的代理地址，那么请定义下方的变量
       ```bash
@@ -82,11 +129,7 @@ npm install -g ds crypto-js jsdom got@11
       为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
       启用此模式后由环境变量 `JD_ISV_TOKEN_PROXY_API` 指定的固定代理地址将会被自动忽略，届时会使用接口响应数据所动态提供的代理地址
 
-- ### 自定义 `Token` 缓存
-
-  > `Token` 是关联账号的重要信息，它的有效期为30分钟左右因此不用每次都用新的，默认缓存在本地文件中，缓存时间为29分钟，同时也支持使用 `Redis` 数据库进行缓存以实现跨设备共用
-
-  - #### 自定义缓存时长
+  - #### 控制缓存时长
 
     ```bash
     export JD_ISV_TOKEN_CACHE_EXPIRE_MINUTES="" # 整数，默认不填为29分钟
@@ -99,8 +142,9 @@ npm install -g ds crypto-js jsdom got@11
     ```
     > 此文件默认存储在仓库 `function/cache` 目录下，如果你需要多仓库使用建议定义此变量
 
-  - #### 使用 `Redis` 数据库
+  - #### 多场景互联（基于 `Redis` 数据库）
 
+    > 通过数据库实现跨设备共用一套 `Token` 缓存
     ```bash
     export JD_ISV_TOKEN_REDIS_CACHE_URL="" # 数据库地址，例：redis://password@127.0.0.1:6379/0
     export JD_ISV_TOKEN_REDIS_CACHE_KEY="" # 自定义提取或提交的键名规则，详见下方说明
@@ -111,12 +155,22 @@ npm install -g ds crypto-js jsdom got@11
 
 - ### 账号全局屏蔽
 
+  > 此功能基于 `getToken` 模块实现
+
   ```bash
   export JD_ISV_TOKEN_LZKJ_PIN_FILTER=""
   export JD_ISV_TOKEN_LZKJ_LOREAL_PIN_FILTER=""
   export JD_ISV_TOKEN_CJHY_PIN_FILTER=""
   ```
   > 填入用户名，多个用@分割
+
+- ### 自动登记实物奖品收货地址
+
+  ```bash
+  export WX_ADDRESS="" # 变量格式：收件人@手机号@省份@城市@区县@详细地址@6位行政区划代码@邮编，需按照顺序依次填写，多个用管道符分开（6位行政区划代码自己查地图，也可用身份证号前六位）
+  export WX_ADDRESS_BLOCK="" # 黑名单关键词，多个关键词用@分开
+  ```
+  此变量是通用的，不过部分脚本具有与此功能相同的独特变量，届时将优先使用独特变量
 
 - ### 自定义获取 APP 签名验参
 
@@ -144,6 +198,8 @@ npm install -g ds crypto-js jsdom got@11
   不管通过何种途径获取签名，最终需要的签名形式为url参数格式且至少包含 `body` `st` `sv` `sign` 字段
 
 - ### 自定义账号消息推送通知
+
+  > 此功能基于 `sendJDNotify` 模块实现
 
   > 只对定义了推送通知开关独特环境变量的部分脚本有效，且默认均为不推送通知  
   > 账号消息的默认格式为 `【XX账号<账号序号>】<用户名>：<消息内容1>，<消息内容2>`
