@@ -85,10 +85,10 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     > 为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
     > 使用动态代理时会忽略静态代理配置
 
-  - #### 额外提供的静态代理（过时的方法）
+  - #### 额外提供的静态代理方式（过时的方法）
 
     > 此功能基于 `getToken` 模块实现，与上面描述的新请求框架无关  
-    > getToken 模块将在未来改版，届时可能会考虑移除此功能
+    > 目前不建议使用此过时的功能，当上面提到的网络全局代理功能普及完毕后会移除该功能
 
     ```bash
     ## 启用代理
@@ -110,24 +110,28 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
 
   - #### 获取 `Token` 局部代理
 
-    目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用，使用代理时会自动重试请求至多3次  
-    需要额外安装代理依赖库才能使用 `npm install -g hpagent`
+    目前受限于官方接口策略，同一IP段请求多个账号后会频繁响应 `403`，因此可能需要配合代理使用，代理配置形式与上面提到的网络全局代理一致
 
     - ##### 静态代理
 
       ```bash
-      export JD_ISV_TOKEN_PROXY="" # 代理接口地址
+      export JD_ISV_TOKEN_HTTP_PROXY=""
       ```
 
     - ##### 动态代理
 
-      如果你需要使用的是代理商接口所动态提供的代理地址，那么请定义下方的变量
       ```bash
-      export JD_ISV_TOKEN_PROXY_API="" # 代理接口地址，例：http://example.com/api/getProxy?sevret=xxx
-      export JD_ISV_TOKEN_PROXY_API_MAX="" # 每个代理地址的使用次数，默认为1次
+      # 获取动态代理的接口地址
+      export JD_ISV_TOKEN_HTTP_DYNAMIC_PROXY_API=""
+      # 指定每个动态代理地址的最多使用次数（整数），默认为1即每个代理仅使用1次，设置为0时表示不限次数
+      export JD_ISV_TOKEN_HTTP_DYNAMIC_PROXY_USE_LIMIT=""
+      # 指定每个动态代理地址的有效时长（单位毫秒），默认为10000即10秒，设置为0时表示永久有效
+      export JD_ISV_TOKEN_HTTP_DYNAMIC_PROXY_TIME_LIMIT=""
+      # 当获取动态代理失败时是否使用原生网络环境继续发起请求，填入 'true/false'，默认否
+      export JD_ISV_TOKEN_HTTP_DYNAMIC_PROXY_FETCH_FAIL_CONTINUE=""
       ```
-      为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
-      启用此模式后由环境变量 `JD_ISV_TOKEN_PROXY_API` 指定的固定代理地址将会被自动忽略，届时会使用接口响应数据所动态提供的代理地址
+      > 为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
+      > 使用动态代理时会忽略静态代理配置
 
   - #### 控制缓存时长
 
@@ -159,7 +163,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
 
   ```bash
   export JD_ISV_TOKEN_LZKJ_PIN_FILTER=""
-  export JD_ISV_TOKEN_LZKJ_LOREAL_PIN_FILTER=""
+  export JD_ISV_TOKEN_LZKJ_NEW_PIN_FILTER=""
   export JD_ISV_TOKEN_CJHY_PIN_FILTER=""
   ```
   > 填入用户名，多个用@分割
