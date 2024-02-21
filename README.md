@@ -83,7 +83,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     export <entryScriptName>_http_dynamic_proxy_fetch_fail_continue=""
     ```
     > 为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
-    > 使用动态代理时会忽略静态代理配置
+    > 使用静态代理时会忽略动态代理配置
 
   - #### 额外提供的静态代理方式（过时的方法）
 
@@ -131,7 +131,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
       export JD_ISV_TOKEN_HTTP_DYNAMIC_PROXY_FETCH_FAIL_CONTINUE=""
       ```
       > 为了避免不必要的浪费建议将接口每次响应的代理地址数量设置为1个，另外建议将接口响应格式设置为单行文本的 `ip:port` 格式，同时也支持 `json` 格式不过仅适配了部分代理商  
-      > 使用动态代理时会忽略静态代理配置
+      > 使用静态代理时会忽略动态代理配置
 
   - #### 控制缓存时长
 
