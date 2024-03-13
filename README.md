@@ -1,11 +1,8 @@
 # 慈善家
 
-全量自用工具本，使用方法详见脚本内注释，反馈脚本问题请在社区内或其它渠道联系作者，随缘更新~
+使用方法详见脚本内注释，不再提供任何反馈渠道，慈善事业随缘更新~
 
 主要接口验参调用函数模块，脚本内容全部加密无任何调用个人接口，我很忙没空研究如何偷你ck，喜欢🐕叫的别用谢谢
-
-> 官方线报频道：[来薅线报通知](https://t.me/LH_notify)  
-> 官方解析BOT：[宇宙无敌万能解析机器人](https://t.me/ParseJDBot)（加入 [Arcadia 官方频道](https://t.me/ArcadiaPanel) 和社区群组后才可以使用）
 
 Tips：仓库内全部都是工具本没有常规本不需要默认设置定时任务，部分情况下运行脚本会报错例如不设置环境变量、变量无效等
 
@@ -13,21 +10,14 @@ Tips：仓库内全部都是工具本没有常规本不需要默认设置定时�
 
 - ### Arcadia 面板（推荐）
 
-    ```bash
-    arcadia repo 慈善家 https://gitlab.com/SuperManito/cishanjia.git main --updateTaskList true --autoDisable false --whiteList '^jd_'
-    ```
-    详见官方文档 [arcadia.cool](https://arcadia.cool)
-
-- ### 青龙面板
-
-    ```bash
-    ql repo https://gitlab.com/SuperManito/cishanjia.git "jd_|jdCookie" "" "^jd[^_]|USER|function|sendNotify" "main"
-    ```
-    ⚠ 外部项目用户请勿在 Arcadia 社区内提问！
+  ```bash
+  arcadia repo 慈善家 https://gitlab.com/SuperManito/cishanjia.git main --updateTaskList true --autoDisable false --whiteList '^jd_'
+  ```
+  详见官方文档 [arcadia.cool](https://arcadia.cool)
 
 - ### 其它
 
-    建议使用 `git` 拉取本仓库
+  建议使用 `git` 拉取本仓库
 
 ## 需要安装的依赖库
 
@@ -42,13 +32,13 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
 - ### 网络全局代理
 
   > 近期新增基于 Axios 的自研请求框架，全面支持请求代理自动化，脚本正在逐步适配中  
-  > 暂不提供具体支持的脚本清单，关于是否生效可在配置变量后通过观察是否存在相关打印作为参考标准
+  > 暂不提供具体支持的脚本清单，建议以修改日期判断是否支持
 
   - #### 简述
 
     新请求框架代理配置引入了一个基于入口脚本文件名的独特变量配置体系，基于脚本的独特变量会优先于全局变量生效
 
-    例如脚本文件名为 `jd_example_test.js`，那么对应的独特代理配置变量前缀为 `jd_example_test_`
+    例如脚本文件名为 `a_example_test.js`，那么对应的独特代理配置变量前缀为 `a_example_test_`
 
   - #### 代理白名单
 
@@ -57,7 +47,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     export JD_COMMON_REQUEST_NO_PROXY=""
     export <entryScriptName>_no_proxy=""
     ```
-    > 例："127.0.0.1,localhost,*.local"，多个用英文逗号分割
+    > 例："127.0.0.1,172.17.0.1,localhost,*.local"，多个用英文逗号分割
 
   - #### 静态代理
 
@@ -88,7 +78,9 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
   - #### 额外提供的静态代理方式（过时的方法）
 
     > 此功能基于 `getToken` 模块实现，与上面描述的新请求框架无关  
-    > 目前不建议使用此过时的功能，当上面提到的网络全局代理功能普及完毕后会移除该功能
+    > 目前不建议使用此过时的功能，当上面提到的网络全局代理功能普及完毕后会移除该功能  
+    > 若盲目使用该方式配置代理则可能会导致与上方的代理功能叠加，请针对特定脚本使用  
+    > 该代理功能实现可能会导致脚本运行结束滞后，即脚本内容运行完毕后需要等待一些时间才会结束Node进程
 
     ```bash
     ## 启用代理
@@ -148,7 +140,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
 
   - #### 多场景互联（基于 `Redis` 数据库）
 
-    > 通过数据库实现跨设备共用一套 `Token` 缓存
+    > 通过数据库实现跨设备共用一套 `Token` 缓存，受限于脚本内容结构该功能可能没那么好用
     ```bash
     export JD_ISV_TOKEN_REDIS_CACHE_URL="" # 数据库地址，例：redis://password@127.0.0.1:6379/0
     export JD_ISV_TOKEN_REDIS_CACHE_KEY="" # 自定义提取或提交的键名规则，详见下方说明
@@ -250,26 +242,4 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     export JD_NOTIFY_AUTO_MERGE_TYPE="" # 例："积分 🎟️"，多个规则用@分割，正则匹配
     ```
 
-- ### 辅助工具脚本（仅适用于 Arcadia 面板）
-
-  安装与更新方法：`bash /arcadia/repo/SuperManito_cishanjia/utils/init.sh`
-  > 执行一次即可（后期随脚本库进行更新）
-
-  - ## 关注店铺有礼
-
-    - ### 使用方法
-
-      ```bash
-      gz <店铺链接/单一店铺ID/组合ID变量> [--options]
-      ```
-      > 注释  
-      > 1. 链接：支持解析ujd短链，只要链接的传递参数中包含 shopId、venderId、vendorId 其中一个任意完整参数即可，例 `gz https://u.xx.com/1234567`  
-      > 2. 纯数字单一店铺ID：shopId、venderId、vendorId 任意一个参数的ID值，例：gz 1234567890  
-      > 3. 市面常见id组合变量（格式为 shopId_venderId），例：gz 1234567890_0987654321
-
-      |    命令选项    | 简写  |              作用              |
-      | :------------: | :---: | :----------------------------: |
-      |   `--cookie`   | `-c`  |  指定账号，参数后需跟账号序号  |
-      | `--background` | `-b`  | 后台运行脚本，不在前台输出日志 |
-
-__未经授权请勿搬运，脚本仅供用于学习交流，切勿用于商业用途！__
+__未经授权请勿搬运，脚本仅供用于学习交流请勿推广，切勿用于商业用途！__
