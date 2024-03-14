@@ -5,7 +5,7 @@
         jd_dpqd_task_threads // 控制签到并发线程数（正整数），默认1
         jd_dpqd_account_threads // 控制账号并发线程数（正整数），默认1
         jd_dpqd_account_interval // 自定义运行间隔时长（整数，单位毫秒），默认0
-        jd_dpqd_max_retry // 签到火爆时的最大重试次数（整数），默认3
+        jd_dpqd_max_retry // 签到火爆时的最大重试次数（整数），默认0
         jd_dpqd_prize_notify // 是否推送中奖信息（true/false），默认不推送
 
 此脚本为高并发签到本，需要读取主脚本生成的活动信息缓存，自动过滤无效活动，签到后如有奖品则自动到账
