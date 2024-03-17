@@ -32,13 +32,15 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
 - ### 网络全局代理
 
   > 近期新增基于 Axios 的自研请求框架，全面支持请求代理自动化，脚本正在逐步适配中  
-  > 暂不提供具体支持的脚本清单，建议以修改日期判断是否支持
+  > 暂不提供具体支持的脚本清单，建议以修改日期判断是否支持，如果你看不懂这部分内容那你就别用了~
 
   - #### 简述
 
-    新请求框架代理配置引入了一个基于入口脚本文件名的独特变量配置体系，基于脚本的独特变量会优先于全局变量生效
+    `JD_COMMON_REQUEST_` 前缀的为全局变量即生效于所有脚本，`<entryScriptName>_` 前缀的为独特变量即生效于特定脚本
 
-    例如脚本文件名为 `a_example_test.js`，那么对应的独特代理配置变量前缀为 `a_example_test_`
+    新请求框架代理配置引入了一个基于入口脚本文件名的独特变量配置体系，并且基于脚本的独特变量会优先于全局变量生效
+
+    例如脚本文件名为 `a_example_test.js`，那么对应的独特静态代理变量名称为 `a_example_test_http_proxy`
 
   - #### 代理白名单
 
@@ -47,7 +49,8 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     export JD_COMMON_REQUEST_NO_PROXY=""
     export <entryScriptName>_no_proxy=""
     ```
-    > 例："127.0.0.1,172.17.0.1,localhost,*.local"，多个用英文逗号分割
+    > 例：`127.0.0.1,172.17.0.1,localhost,*.local`，多个用英文逗号分割  
+    > 代理白名单是针对的实际业务请求而不是脚本名称
 
   - #### 静态代理
 
@@ -55,6 +58,7 @@ npm install -g axios got@11 https-proxy-agent ds crypto-js jsdom console-table-p
     export JD_COMMON_REQUEST_HTTP_PROXY=""
     export <entryScriptName>_http_proxy=""
     ```
+    > 支持带有认证的地址格式，例如 `http://username:password@hostname:port`
 
   - #### 动态代理
 
