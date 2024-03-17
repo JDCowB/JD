@@ -13,7 +13,7 @@
         jd_wxSignPoint_lzkjFilter // 账号pin过滤（跳过不跑），多个用户名用@分割
         jd_wxSignPoint_cjhyFilter // 账号pin过滤（跳过不跑），多个用户名用@分割
         jd_wxSignPoint_notify // 是否推送通知（true/false），默认不推送
-        jd_wxSignPoint_maxRetry // 签到失败时的最大重试次数（整数），默认10
+        jd_wxSignPoint_maxRetry // 签到失败时的最大重试次数（整数），默认0
         jd_wxSignPoint_forbiddenQuit // 当连续请求IP被限制时是否跳出即停止运行脚本（true/false），默认停止运行
 
 不同环境变量对应不同链接类型注意区分，官方接口垃圾，中奖一切随缘，打印仅供参考
