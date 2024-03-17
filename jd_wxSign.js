@@ -1,5 +1,5 @@
 /*
-活动名称：店铺签到 · 超级无线/超级会员
+活动名称：批量店铺签到 · 超级无线/超级会员
 活动链接：https://lzkj-isv.isvjd.com/sign/signActivity2?activityId=<活动id>
         https://lzkj-isv.isvjd.com/sign/sevenDay/signActivity?activityId=<活动id>
         https://cjhy-isv.isvjcloud.com/sign/signActivity?activityId=<活动id>
@@ -24,7 +24,7 @@ cron: 7 7 7 7 * jd_wxSign.js
 
 */
 
-const $ = new Env('店铺签到（超级无线/超级会员）')
+const $ = new Env('批量店铺签到（超级无线/超级会员）')
 const jdCookie = require('./jdCookie')
 const common = require('./function/jdCommon')
 const notify = require('./function/sendJDNotify')
